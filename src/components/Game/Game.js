@@ -2,6 +2,8 @@ import React from 'react';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import { range } from '../../utils';
 
 import GuessInput from '../GuessInput/GuessInput';
 import Guesses from '../Guesses/Guesses';
@@ -12,23 +14,27 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-    const [guesses, setGuesses] = React.useState([]);
+    const [guesses, setGuesses] = React.useState(
+        range(0, NUM_OF_GUESSES_ALLOWED).map((id) => {
+            return { id, guess: '' };
+        })
+    );
+    const [tried, setTried] = React.useState(0);
 
     const addGuess = (guess) => {
-        const nextGuesses = [...guesses];
-        nextGuesses.push({
-            id: Math.random(),
-            guess,
-        });
+        if (tried >= NUM_OF_GUESSES_ALLOWED) return;
 
-        setGuesses(nextGuesses);
+        guesses[tried].guess = guess;
+
+        setTried(tried + 1);
+        setGuesses(guesses);
     };
 
     return (
         <>
             Put a game here!
             <Guesses>{guesses}</Guesses>
-            <GuessInput addGuess={addGuess} />
+            <GuessInput tried={tried} addGuess={addGuess} />
         </>
     );
 }
