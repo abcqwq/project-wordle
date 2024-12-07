@@ -1,13 +1,16 @@
 import React from 'react';
 
-function GuessInput() {
+function GuessInput({ addGuess }) {
     const [guess, setGuess] = React.useState('');
 
     return (
         <form
             onSubmit={(event) => {
                 event.preventDefault();
-                console.log({ guess });
+
+                addGuess(guess);
+
+                setGuess('');
             }}
             className={'guess-input-wrapper'}>
             <label htmlFor={'guess-input'}>Enter guess:</label>
@@ -15,7 +18,9 @@ function GuessInput() {
                 pattern={'[A-Za-z]{5,5}'}
                 maxLength={5}
                 value={guess}
-                title={'Your guess must consists of 5 characters.'}
+                title={
+                    'Your guess must consists of 5 characters and alphabets only.'
+                }
                 onChange={(event) => {
                     setGuess(event.target.value.toUpperCase());
                 }}
