@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
-
-function GuessInput({ tried, addGuess }) {
+function GuessInput({ gameOver, addGuess }) {
     const [guess, setGuess] = React.useState('');
 
     return (
@@ -20,7 +18,7 @@ function GuessInput({ tried, addGuess }) {
                 pattern={'[A-Za-z]{5,5}'}
                 maxLength={5}
                 value={guess}
-                disabled={tried === NUM_OF_GUESSES_ALLOWED}
+                disabled={gameOver}
                 title={
                     'Your guess must consists of 5 characters and alphabets only.'
                 }
