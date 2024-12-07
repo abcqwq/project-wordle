@@ -1,12 +1,14 @@
 import React from 'react';
 
 import Guess from '../Guess/Guess';
+import { checkGuess } from '../../game-helpers';
 
-function Guesses({ children }) {
+function Guesses({ children, answer }) {
     return (
         <div className={'guess-results'}>
             {children.map(({ guess, id }) => {
-                return <Guess key={id}>{guess}</Guess>;
+                const guessMapping = checkGuess(guess, answer);
+                return <Guess key={id}>{guessMapping}</Guess>;
             })}
         </div>
     );

@@ -32,8 +32,7 @@ function Game() {
 
     return (
         <>
-            Put a game here!
-            <Guesses>{guesses}</Guesses>
+            <Guesses answer={answer}>{guesses}</Guesses>
             <GuessInput tried={tried} addGuess={addGuess} />
         </>
     );
